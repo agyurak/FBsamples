@@ -1,10 +1,10 @@
-/* This files show some other data wrangling methods I used to bring together several files that were the result of brain
+/* This files show some other data manipulation that I used to bring together several files that were the result of brain
 imaging analyses. */
 
 
 /* This step reads in a csv file that contains data for more participants than I need for the current analysis. It also has 
 timepoint1 and timepoint2 (pre and post assessment) set up in the wide format. I will need to transpose these. Showing 
-steps for this for dealing with the timepoint1 data. */
+steps for this for dealing with the timepoint1 data. I repeat the same for timpoint2 and then merge together by the primary key */
 proc import datafile= 'C:\project\emotionreg\GAD_MDDtraining\data\fmri\resting_graph\all_g7_degree.csv'
 out=work.graph_network replace;
 run;
@@ -36,7 +36,7 @@ if timepoint ne 'tp1' then delete;
 drop timepoint;
 run;
 
-/* Adding the _tp1 suffix to organize the variables in the wide format instead of long format. Basically the macro 
+/* Adding the _tp1 suffix to organize the variables in the wide format instead of long format. The macro 
 renames the variables in a batch for example n8_LECN_01 becomes n8_LECN_01_tp1. */
 data ignite_graph_networkTP1;
 set ignite_graph_networkTP1;
@@ -81,8 +81,12 @@ n67_dDMN_09, _tp1);
 run;
 
 
-/* This step reads in a file and will generate variable names. The file essentially contains two 
-variables x and y, with numerical values 1-54. I will need to map these xy pairs (see concanate below) as variable names (called 
+/* I was given a file where the column names were encoded in 2 rows. For example:
+x = 0 0 0 1 1 2 2 2 2 2...
+y = 0 1 3 2 1 4 5 5 1 0...
+The numerical values run 0-54.
+These pairs of values xy map onto strings that need to be paired up according to the pattern in xy.
+This step reads in a file and will generate variable names.  I will need to map these xy pairs (see concatenate below) as variable names (called 
 ROIs) in a later step (not included). There were 1485 xy combinations and I wanted to use this code to make sure there are no 
 mistakes in the variable names. */
 proc import datafile= 'C:\project\ispotd\data\vars.xls'
