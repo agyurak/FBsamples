@@ -87,7 +87,9 @@ y = 0 1 3 2 1 4 5 5 1 0...
 The numerical values run 0-54.
 These pairs of values xy map onto strings that need to be paired up according to the pattern in xy.
 This step reads in a file and will generate variable names.  I will need to map these xy pairs (see concatenate below) 
-as variable names (called ROIs = brain Regions Of Interest) in a later step (not included). There were 1485 xy combinations and I wanted to use this code to make sure there are no 
+as variable names (called ROIs = brain Regions Of Interest) in a later step (not included). I use the variable names in another 
+program to derive results from brain imaging analyses. The new variable names serve as an input to a brain imaging function.
+There were 1485 xy combinations and I wanted to use this code to make sure there are no 
 mistakes in the variable names. */
 proc import datafile= 'C:\project\ispotd\data\vars.xls'
 out=work.vars; 
