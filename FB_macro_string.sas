@@ -1,3 +1,6 @@
+/* The oveall goal of this file is to 1. rename variables in an input file 2. rearrange wide into long format 3. generate string
+names for subsequent use in imaging analyses which will then be read back in. 3. merge together for later statistical analyses.*/
+
 
 /* This step reads in a csv file that contains data for more participants than I need for the current analysis. It also has 
 timepoint1 and timepoint2 (pre and post assessment) set up in the wide format. I will need to transpose these. Showing 
@@ -85,11 +88,11 @@ x = 0 0 0 1 1 2 2 2 2 2...
 y = 0 1 3 2 1 4 5 5 1 0...
 The numerical values run 0-54.
 These pairs of values xy map onto strings that need to be paired up according to the pattern in xy.
-This step reads in a file and will generate variable names.  I will need to map these xy pairs (see concatenate below) 
+This step reads in a file and will generate variable names.  I then map these xy pairs (see concatenate below) 
 as variable names (called ROIs = brain Regions Of Interest) in a later step (not included) into a brain imaging software
 in MATLAB called SPM. The new variable names serve as an input to a brain imaging function.
 There were 1485 xy combinations and I wanted to use this code to make sure there are no 
-mistakes in the variable names. */
+mistakes in the variable names. The MATLAB/SPM output is then read back in later (not included). */
 proc import datafile= 'C:\project\ispotd\data\vars.xls'
 out=work.vars; 
 run;
@@ -217,3 +220,4 @@ run;
 
 
 
+/* In a series of datasteps I merge together timpoint 1, timpeoint 2 data and the imaging input from MATLAB/SPM. */
